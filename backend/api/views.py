@@ -10,6 +10,6 @@ def home_api(request, *args, **kwargs):
 
     data = request.data
     serializer = ProductSerializer(data=data)
-    if serializer.is_valid():
+    if serializer.is_valid(raise_exception=True):
         response_data = serializer.save()
     return Response(serializer.data)
