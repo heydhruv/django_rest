@@ -1,26 +1,26 @@
-from rest_framework import generics, mixins, permissions
+from rest_framework import generics, mixins
 from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
-from .permissions import IsStaffEditorPermission
-from rest_framework.authentication import TokenAuthentication,SessionAuthentication
-
-class ProductDetailsApiView(generics.RetrieveAPIView):
+from api.mixins import StaffEditorPermissionMixin
+class ProductDetailsApiView(
+    generics.RetrieveAPIView,
+    StaffEditorPermissionMixin):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsStaffEditorPermission]
 
-class ProductListCreateApiView(generics.ListCreateAPIView):
+class ProductListCreateApiView(
+    generics.ListCreateAPIView,
+    StaffEditorPermissionMixin):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    authentication_classes = [
-        SessionAuthentication,
-        TokenAuthentication
-    ]
 
-class ProductUpdateApiView(generics.UpdateAPIView):
+
+class ProductUpdateApiView(
+    generics.UpdateAPIView,
+    StaffEditorPermissionMixin):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
@@ -28,7 +28,9 @@ class ProductUpdateApiView(generics.UpdateAPIView):
     def perform_update(self, serializer):
         serializer.save()
 
-class ProductDeleteApiView(generics.DestroyAPIView):
+class ProductDeleteApiView(
+    generics.DestroyAPIView,
+    StaffEditorPermissionMixin):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
