@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SearchListView
+from .views import SearchListViewAlgolia
 urlpatterns =[
-    path('', SearchListView.as_view(), name='search')
+    path('', SearchListViewAlgolia.as_view(), name='search')
 ]

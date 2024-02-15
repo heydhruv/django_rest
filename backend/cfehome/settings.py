@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "search",
+    "algoliasearch_django",
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,12 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES" : ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
-    # "DEFAULT_PAGINATION_CLASS" : "rest_framework.pagination.LimitOffsetPagination",
-    # "PAGE_SIZE" : 5,
+    "DEFAULT_PAGINATION_CLASS" : "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE" : 5,
+}
+
+ALGOLIA = {
+    'APPLICATION_ID': 'VFLUCQSRM1',
+    'API_KEY': '3127801f8ef88c709f6f917850afb72e',
+    'INDEX_PREFIX': 'DHRUV',
 }
